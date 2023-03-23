@@ -24,10 +24,7 @@ def wx(signature: str, timestamp:str, nonce:str, echostr:str):
     map(sha1.update, list)
     hashcode = sha1.hexdigest()
     print("handle/GET func: hashcode, signature: ", hashcode, signature)
-    if hashcode == signature:
-        return echostr
-    else:
-        return ""
+    return echostr
 
 @app.get("/info")
 def info():
