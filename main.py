@@ -3,6 +3,7 @@ from typing import Union
 from fastapi import FastAPI
 from app.config_reader import settings
 import hashlib
+from fastapi import Response
 
 app = FastAPI()
 
@@ -24,7 +25,7 @@ def wx(signature: str, timestamp:str, nonce:str, echostr:str):
     map(sha1.update, list)
     hashcode = sha1.hexdigest()
     print("handle/GET func: hashcode, signature, echostr: ", hashcode, signature, echostr)
-    return echostr
+    return Response(content=echostr)
 
 @app.get("/info")
 def info():
