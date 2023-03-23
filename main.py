@@ -1,7 +1,7 @@
 from typing import Union
 
 from fastapi import FastAPI
-from config_reader import settings
+from app.config_reader import settings
 
 app = FastAPI()
 
@@ -14,7 +14,9 @@ def read_root():
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
-
+@app.get("/wx")
+def wx():
+    return {"Hello": "World"}
 
 
 @app.get("/info")
