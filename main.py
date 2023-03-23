@@ -2,6 +2,7 @@ from typing import Union
 
 from fastapi import FastAPI
 from app.config_reader import settings
+import hashlib
 
 app = FastAPI()
 
@@ -15,9 +16,18 @@ def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
 @app.get("/wx")
-def wx():
-    return {"Hello": "World"}
-
+def wx(signature: str, timestamp:str, nonce:str, echostr:str):
+    token = "bingchengtoken"
+    list = [token, timestamp, nonce]
+    list.sort()
+    sha1 = hashlib.sha1()
+    map(sha1.update, list)
+    hashcode = sha1.hexdigest()
+    print("handle/GET func: hashcode, signature: ", hashcode, signature)
+    if hashcode == signature:
+        return echostr
+    else:
+        return ""
 
 @app.get("/info")
 def info():
