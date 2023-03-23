@@ -23,7 +23,7 @@ def wx(signature: str, timestamp:str, nonce:str, echostr:str):
     sha1 = hashlib.sha1()
     map(sha1.update, list)
     hashcode = sha1.hexdigest()
-    print("handle/GET func: hashcode, signature: ", hashcode, signature)
+    print("handle/GET func: hashcode, signature, echostr: ", hashcode, signature, echostr)
     return echostr
 
 @app.get("/info")
